@@ -1,0 +1,24 @@
+package com.bts.recruiting.dtos;
+
+import com.bts.recruiting.entity.Technology;
+import lombok.*;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * A DTO for the {@link Technology} entity
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+public class TechnologyDto implements Serializable {
+    private Integer id;
+    private String name;
+    private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime archivedAt;
+}
