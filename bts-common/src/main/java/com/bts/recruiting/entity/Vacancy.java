@@ -1,6 +1,6 @@
 package com.bts.recruiting.entity;
 
-import com.bts.recruiting.services.EnglishLevel;
+import com.bts.recruiting.enums.EnglishLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
