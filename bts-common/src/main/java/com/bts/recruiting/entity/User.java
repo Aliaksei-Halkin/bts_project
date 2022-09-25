@@ -5,6 +5,8 @@ import com.bts.recruiting.services.UserQueueLevel;
 import com.bts.recruiting.services.UserSkillLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -53,9 +55,11 @@ public class User {
     @JoinColumn(name = "last_organization", nullable = false)
     private Organization lastOrganization;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 

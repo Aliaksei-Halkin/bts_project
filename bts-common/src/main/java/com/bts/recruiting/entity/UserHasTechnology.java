@@ -2,6 +2,7 @@ package com.bts.recruiting.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class UserHasTechnology {
     @JoinColumn(name = "technology_id", nullable = false)
     private Technology technology;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

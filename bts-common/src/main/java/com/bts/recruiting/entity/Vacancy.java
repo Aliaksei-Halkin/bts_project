@@ -3,7 +3,9 @@ package com.bts.recruiting.entity;
 import com.bts.recruiting.services.EnglishLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -26,11 +28,14 @@ public class Vacancy {
     @Column(name = "experience", nullable = false)
     private Integer experience;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private Instant updatedAt;
+
     @Column(name = "archived_at")
     private Instant archivedAt;
 
