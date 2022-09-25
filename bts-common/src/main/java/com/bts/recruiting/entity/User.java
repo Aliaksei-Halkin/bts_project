@@ -1,8 +1,8 @@
 package com.bts.recruiting.entity;
 
-import com.bts.recruiting.enums.UserDecision;
-import com.bts.recruiting.enums.UserQueueLevel;
-import com.bts.recruiting.enums.UserSkillLevel;
+import com.bts.recruiting.services.UserDecision;
+import com.bts.recruiting.services.UserQueueLevel;
+import com.bts.recruiting.services.UserSkillLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

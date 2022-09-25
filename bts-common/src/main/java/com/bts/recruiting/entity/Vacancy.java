@@ -1,13 +1,11 @@
 package com.bts.recruiting.entity;
 
+import com.bts.recruiting.services.EnglishLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
 @Data
 @NoArgsConstructor
@@ -36,10 +34,7 @@ public class Vacancy {
     @Column(name = "archived_at")
     private Instant archivedAt;
 
-/*
-    TODO [JPA Buddy] create field to map the 'english_level' column
-     Available actions: Define target Java type | Uncomment as is | Remove column mapping
+    @Enumerated(EnumType.STRING)
     @Column(name = "english_level", columnDefinition = "english_level not null")
-    private Object englishLevel;
-*/
+    private EnglishLevel englishLevel;
 }

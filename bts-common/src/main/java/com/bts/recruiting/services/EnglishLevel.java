@@ -1,4 +1,4 @@
-package com.bts.recruiting.enums;
+package com.bts.recruiting.services;
 
 public enum EnglishLevel {
     A0,
