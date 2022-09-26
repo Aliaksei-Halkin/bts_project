@@ -35,6 +35,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.bts</groupId>
+            <artifactId>bts-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.5.0</version>
