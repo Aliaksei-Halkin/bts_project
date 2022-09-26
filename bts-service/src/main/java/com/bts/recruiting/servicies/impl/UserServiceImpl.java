@@ -4,9 +4,9 @@ import com.bts.recruiting.dtos.UserDto;
 import com.bts.recruiting.repository.UserRepository;
 import com.bts.recruiting.servicies.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 

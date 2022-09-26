@@ -37,6 +37,8 @@ public class UserDto implements Serializable {
     @Pattern(regexp = "[a-zA-Z\\-]{2,50}", message = "Last name should be at least 2 "
             + "letters long and contain English alphabet letters only")
     private String surname;
+    @Pattern(regexp = "[a-zA-Z\\-]{2,50}", message = "Patronymic should be at least 2 "
+            + "letters long and contain English alphabet letters only")
     private String patronymic;
     @Past
     private LocalDate birthdate;
