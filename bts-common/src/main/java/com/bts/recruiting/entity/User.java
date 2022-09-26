@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,7 +35,8 @@ public class User {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "\"position\"", nullable = false)
     private Vacancy position;
 
@@ -51,7 +53,8 @@ public class User {
     private UserDecision decision;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "last_organization", nullable = false)
     private Organization lastOrganization;
 
@@ -65,5 +68,9 @@ public class User {
 
     @Column(name = "archived_at")
     private LocalDateTime archivedAt;
+
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH})
+    List<UserHasTechnology> partnerAndRules;
 
 }
