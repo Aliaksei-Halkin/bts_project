@@ -1,5 +1,5 @@
 # bts_project IN PROGRESS...
-It's a recruting project with defrent logics and user sorting when they register. See more in task.pdf
+It's a recruting project with difrent logics and user sorting when they register. See more in task.pdf
 A schema of a database:
 ![img.png](img.png)
 Using technologies:
