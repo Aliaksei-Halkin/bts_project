@@ -6,6 +6,7 @@ import com.bts.recruiting.enums.UserSkillLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -49,11 +50,11 @@ public class User {
     private UserQueueLevel queueLevel;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "decision", columnDefinition ="user_decision")
+    @Column(name = "decision", columnDefinition = "user_decision")
     private UserDecision decision;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "last_organization", nullable = false)
     private Organization lastOrganization;
@@ -69,8 +70,15 @@ public class User {
     @Column(name = "archived_at")
     private LocalDateTime archivedAt;
 
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+    @Column(name = "salary")
+    private Integer salary;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
             CascadeType.DETACH})
-    List<UserHasTechnology> partnerAndRules;
+    private List<UserHasTechnology> userTechnologies;
+
+    @Column(name = "about")
+    @Type(type = "org.hibernate.type.TextType")
+    private String about;
 
 }
