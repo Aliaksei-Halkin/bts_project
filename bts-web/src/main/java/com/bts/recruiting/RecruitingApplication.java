@@ -18,4 +18,5 @@ public class RecruitingApplication {
         SpringApplication.run(RecruitingApplication.class, args);
     }
 
+
 }

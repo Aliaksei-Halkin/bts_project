@@ -36,7 +36,7 @@ public class User {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "\"position\"", nullable = false)
     private Vacancy position;
@@ -54,7 +54,7 @@ public class User {
     private UserDecision decision;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "last_organization", nullable = false)
     private Organization lastOrganization;

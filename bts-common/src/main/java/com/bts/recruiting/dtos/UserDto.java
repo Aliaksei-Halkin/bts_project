@@ -1,7 +1,6 @@
 package com.bts.recruiting.dtos;
 
 import com.bts.recruiting.entity.User;
-import com.bts.recruiting.entity.UserHasTechnology;
 import com.bts.recruiting.enums.UserDecision;
 import com.bts.recruiting.enums.UserQueueLevel;
 import com.bts.recruiting.enums.UserSkillLevel;
@@ -11,15 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,6 +29,9 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserDto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -8766199096668397973L;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
     @NotBlank
@@ -67,6 +66,5 @@ public class UserDto implements Serializable {
     private LocalDateTime archivedAt;
     private List<String> technologies;
     private Integer salary;
-    private List<String> userTechnologies;
     private String about;
 }

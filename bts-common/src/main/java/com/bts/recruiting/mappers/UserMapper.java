@@ -5,11 +5,13 @@ import com.bts.recruiting.dtos.UserDto;
 import com.bts.recruiting.dtos.VacancyDto;
 import com.bts.recruiting.entity.User;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
-    public static UserDto mapEntityToDto(User user) {
+    public UserDto mapEntityToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setName(user.getName());

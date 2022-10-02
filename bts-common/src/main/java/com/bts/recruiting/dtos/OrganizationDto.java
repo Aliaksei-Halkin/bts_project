@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 public class OrganizationDto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 8370980773310288746L;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
     private String ownershipForm;

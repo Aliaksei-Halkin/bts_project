@@ -3,6 +3,7 @@ package com.bts.recruiting.servicies.impl;
 import com.bts.recruiting.dtos.OrganizationDto;
 import com.bts.recruiting.dtos.UserDto;
 import com.bts.recruiting.entity.*;
+import com.bts.recruiting.enums.UserDecision;
 import com.bts.recruiting.enums.UserQueueLevel;
 import com.bts.recruiting.enums.UserSkillLevel;
 import com.bts.recruiting.exceptions.BtsException;
@@ -12,9 +13,12 @@ import com.bts.recruiting.repository.UserHasTechnologyRepository;
 import com.bts.recruiting.repository.UserRepository;
 import com.bts.recruiting.servicies.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +32,10 @@ public class UserServiceImpl implements UserService {
     private final VacancyService vacancyService;
     private final OrganizationService organizationService;
     private final UserHasTechnologyRepository userHasTechnologyRepository;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BadUserService badUserService, BadOrganizationService badOrganizationService, TechnologyService technologyService, VacancyService vacancyService, OrganizationService organizationService, UserHasTechnologyRepository userHasTechnologyRepository) {
+    public UserServiceImpl(UserRepository userRepository, BadUserService badUserService, BadOrganizationService badOrganizationService, TechnologyService technologyService, VacancyService vacancyService, OrganizationService organizationService, UserHasTechnologyRepository userHasTechnologyRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.badUserService = badUserService;
         this.badOrganizationService = badOrganizationService;
@@ -38,6 +43,7 @@ public class UserServiceImpl implements UserService {
         this.vacancyService = vacancyService;
         this.organizationService = organizationService;
         this.userHasTechnologyRepository = userHasTechnologyRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -63,7 +69,7 @@ public class UserServiceImpl implements UserService {
                 .toList();
         user.setQueueLevel(calculateLevel(userDto, technologies.size()));
         User savedUser = userRepository.save(user);
-        List<UserHasTechnology> userHasTechnologiesList =new ArrayList<>();
+        List<UserHasTechnology> userHasTechnologiesList = new ArrayList<>();
         technologies.forEach(t -> {
             UserHasTechnology userHasTechnology = new UserHasTechnology();
             userHasTechnology.setUser(savedUser);
@@ -72,7 +78,24 @@ public class UserServiceImpl implements UserService {
             userHasTechnologiesList.add(savedTechnology);
         });
         user.setUserTechnologies(userHasTechnologiesList);
-        return UserMapper.mapEntityToDto(savedUser);
+        return userMapper.mapEntityToDto(savedUser);
+    }
+
+    @Override
+    public UserDto addUserDecision(UserDecision userDecision, Integer userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            throw new BtsException(ExceptionCode.RECORD_NOT_FOUND, "User not faund");
+        });
+        user.setDecision(userDecision);
+        user.setArchivedAt(LocalDateTime.now());
+        User savedUser = userRepository.save(user);
+        return userMapper.mapEntityToDto(savedUser);
+    }
+
+    @Override
+    public Page<UserDto> findAllByStatus(UserQueueLevel userQueueLevel, Pageable pageable) {
+        Page<User> allByQueueLevel = userRepository.findUsersByQueueLevel(userQueueLevel, pageable);
+        return allByQueueLevel.map(userMapper::mapEntityToDto);
     }
 
     private UserQueueLevel calculateLevel(UserDto userDto, int technologyQuantity) {
