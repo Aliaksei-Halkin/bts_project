@@ -3,25 +3,31 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
-	<modules>
-		<module>bts-web</module>
-		<module>bts-common</module>
-		<module>bts-service</module>
-		<module>bts-repository</module>
-	</modules>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
 	<groupId>com.bts</groupId>
 	<artifactId>recruiting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>recruiting</name>
 	<description>Recruiting project for Spring Boot</description>
 
+	<modules>
+		<module>bts-web</module>
+		<module>bts-common</module>
+		<module>bts-service</module>
+		<module>bts-repository</module>
+	</modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+
+
 	<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
 		<start-class>com.bts.recruiting.RecruitingApplication</start-class>
 	</properties>
