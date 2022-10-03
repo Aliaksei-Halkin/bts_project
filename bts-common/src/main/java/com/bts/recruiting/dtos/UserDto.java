@@ -46,6 +46,7 @@ public class UserDto implements Serializable {
             + "letters long and contain English alphabet letters only")
     private String patronymic;
     @Past
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     @Valid
     private VacancyDto position;
@@ -62,6 +63,7 @@ public class UserDto implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime archivedAt;
     private List<String> technologies;

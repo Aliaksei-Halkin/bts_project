@@ -32,7 +32,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserDto> addUserDecision(@PathVariable(name = "id") Integer userId,
-                                                   @RequestBody UserDecision userDecision) {
+                                                   @RequestParam UserDecision userDecision) {
         UserDto responseUserDto = userService.addUserDecision(userDecision, userId);
         return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
     }

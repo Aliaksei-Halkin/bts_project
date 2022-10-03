@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
-        user.setPatronymic(user.getPatronymic());
+        user.setPatronymic(userDto.getPatronymic());
         user.setBirthdate(userDto.getBirthdate());
         user.setSkillLevel(userDto.getSkillLevel());
         user.setPosition(findVacancy(userDto));
