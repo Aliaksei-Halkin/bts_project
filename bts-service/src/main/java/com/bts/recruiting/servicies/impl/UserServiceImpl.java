@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Business level for users
+ */
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -46,6 +49,12 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    /**
+     * The method add user to a database. Checks user by bad organizations, bad users, define queue and save his in the database
+     *
+     * @param userDto from request
+     * @return saved {@link UserDto}
+     */
     @Override
     @Transactional
     public UserDto addUser(UserDto userDto) {
@@ -81,6 +90,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.mapEntityToDto(savedUser);
     }
 
+    /**
+     * Tne method define decision by user identification
+     *
+     * @param userDecision enum {@link UserDecision} with pre difin
+     * @param userId
+     * @return saved {@link UserDto}
+     */
     @Override
     public UserDto addUserDecision(UserDecision userDecision, Integer userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> {
@@ -92,12 +108,26 @@ public class UserServiceImpl implements UserService {
         return userMapper.mapEntityToDto(savedUser);
     }
 
+    /**
+     * Find all by status
+     *
+     * @param userQueueLevel
+     * @param pageable
+     * @return page with userDtos
+     */
     @Override
     public Page<UserDto> findAllByStatus(UserQueueLevel userQueueLevel, Pageable pageable) {
         Page<User> allByQueueLevel = userRepository.findUsersByQueueLevel(userQueueLevel, pageable);
         return allByQueueLevel.map(userMapper::mapEntityToDto);
     }
 
+    /**
+     * Check users for 4 conditions. if user doesn't much with 4 conditions by default he has REJECT level
+     *
+     * @param userDto
+     * @param technologyQuantity
+     * @return defined {@link UserQueueLevel}
+     */
     private UserQueueLevel calculateLevel(UserDto userDto, int technologyQuantity) {
         boolean badUser = isBadUsers(userDto);
         boolean badOrganization = isBadOrganizations(userDto);
@@ -106,7 +136,7 @@ public class UserServiceImpl implements UserService {
         if (badUser) {
             return UserQueueLevel.REJECT;
         }
-        if (!badUser && salary.intValue() > 3000) {
+        if (!badUser && salary.intValue() >= 3000) {
             return UserQueueLevel.THIRD;
         }
         if (salary >= 1000 && salary <= 2000 && (userDto.getSkillLevel() == UserSkillLevel.MIDDLE)
@@ -120,6 +150,12 @@ public class UserServiceImpl implements UserService {
         return userQueueLevel;
     }
 
+    /**
+     * Finds existing vacancy by id in db or else throw
+     *
+     * @param userDto
+     * @return
+     */
     private Vacancy findVacancy(UserDto userDto) {
         return vacancyService.findById(userDto.getPosition().getId()).orElseThrow(() -> {
             throw new BtsException(ExceptionCode.RECORD_NOT_FOUND, String.format("Such vacancy didn't find:  %s",
@@ -127,16 +163,34 @@ public class UserServiceImpl implements UserService {
         });
     }
 
+    /**
+     * Finds organization in db or create
+     *
+     * @param lastOrganization
+     * @return {@link Organization}
+     */
     private Organization findOrCreateOrganization(OrganizationDto lastOrganization) {
         Optional<Organization> organizationOptional = organizationService.findByName(lastOrganization.getName());
         return organizationOptional.orElseGet(() -> organizationService.add(lastOrganization));
     }
 
+    /**
+     * Checks organization in bad organizations table
+     *
+     * @param userDto
+     * @return true if present, otherwise false
+     */
     private boolean isBadOrganizations(UserDto userDto) {
         return badOrganizationService.findBadOrganization(userDto.getLastOrganization()).isPresent();
 
     }
 
+    /**
+     * Checks user in bad users table
+     *
+     * @param userDto
+     * @return true if present, otherwise false
+     */
     private boolean isBadUsers(UserDto userDto) {
         return badUserService.findUser(userDto.getName(), userDto.getSurname(), userDto.getPatronymic())
                 .isPresent();

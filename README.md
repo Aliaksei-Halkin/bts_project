@@ -11,3 +11,4 @@ Using technologies:
 -jpa/hibernate
 -postgres  db
 -swagger, go to http://localhost:8087/swagger-ui/index.html#/
+-second level cache Hibernate for directories
