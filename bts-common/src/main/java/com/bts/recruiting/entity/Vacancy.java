@@ -6,9 +6,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -27,17 +30,14 @@ public class Vacancy {
 
     @Column(name = "experience", nullable = false)
     private Integer experience;
-
     @CreationTimestamp
     @Column(name = "created_at")
-    private Instant createdAt;
-
+    private LocalDateTime createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Instant updatedAt;
-
+    private LocalDateTime updatedAt;
     @Column(name = "archived_at")
-    private Instant archivedAt;
+    private LocalDateTime archivedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "english_level", columnDefinition = "english_level not null")
