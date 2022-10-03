@@ -1,4 +1,4 @@
-# bts_project IN PROGRESS...
+# bts_project 
 It's a recruting project with difrent logics and user sorting when they register. See more in the task.pdf
 A schema of a database:
 ![img.png](img.png)
