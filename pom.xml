@@ -3,37 +3,30 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
-	<groupId>com.bts</groupId>
-	<artifactId>recruiting</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>recruiting</name>
-	<description>Recruiting project for Spring Boot</description>
-
 	<modules>
 		<module>bts-web</module>
 		<module>bts-common</module>
 		<module>bts-service</module>
 		<module>bts-repository</module>
 	</modules>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
-
+	<groupId>com.bts</groupId>
+	<artifactId>recruiting</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>recruiting</name>
+	<description>Recruiting project for Spring Boot</description>
 
 	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
 		<start-class>com.bts.recruiting.RecruitingApplication</start-class>
 	</properties>
 
 	<dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>2.7.4</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -81,7 +74,16 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.6</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.6.11.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.6.11.Final</version>
+		</dependency>
 	</dependencies>
 	</dependencyManagement>
 
