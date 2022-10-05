@@ -132,20 +132,19 @@ public class UserServiceImpl implements UserService {
         boolean badUser = isBadUsers(userDto);
         boolean badOrganization = isBadOrganizations(userDto);
         Integer salary = userDto.getSalary();
-        UserQueueLevel userQueueLevel = UserQueueLevel.REJECT;
+        UserQueueLevel userQueueLevel;
         if (badUser) {
-            return UserQueueLevel.REJECT;
-        }
-        if (!badUser && salary.intValue() >= 3000) {
-            return UserQueueLevel.THIRD;
-        }
-        if (salary >= 1000 && salary <= 2000 && (userDto.getSkillLevel() == UserSkillLevel.MIDDLE)
+            userQueueLevel = UserQueueLevel.REJECT;
+        } else if (!badUser && salary.intValue() >= 3000) {
+            userQueueLevel = UserQueueLevel.THIRD;
+        } else if (salary >= 1000 && salary <= 2000 && (userDto.getSkillLevel() == UserSkillLevel.MIDDLE)
                 && !badOrganization && technologyQuantity >= 7) {
-            return UserQueueLevel.FIRST;
-        }
-        if ((salary < 1000 || salary > 2000) && (userDto.getSkillLevel() == UserSkillLevel.JUNIOR ||
+            userQueueLevel = UserQueueLevel.FIRST;
+        } else if ((salary < 1000 || salary > 2000) && (userDto.getSkillLevel() == UserSkillLevel.JUNIOR ||
                 userDto.getSkillLevel() == UserSkillLevel.SENIOR) && !badOrganization && technologyQuantity < 7) {
-            return UserQueueLevel.SECOND;
+            userQueueLevel = UserQueueLevel.SECOND;
+        } else {
+            userQueueLevel = UserQueueLevel.REJECT;
         }
         return userQueueLevel;
     }
