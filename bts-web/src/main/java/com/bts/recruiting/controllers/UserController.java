@@ -5,10 +5,12 @@ import com.bts.recruiting.enums.UserDecision;
 import com.bts.recruiting.enums.UserQueueLevel;
 import com.bts.recruiting.servicies.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
