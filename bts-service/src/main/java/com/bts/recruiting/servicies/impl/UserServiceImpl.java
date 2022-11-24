@@ -121,6 +121,12 @@ public class UserServiceImpl implements UserService {
         return allByQueueLevel.map(userMapper::mapEntityToDto);
     }
 
+    @Override
+    public UserDto findById(Integer userId) {
+        User user = userRepository.findById(userId).orElse(new User());
+        return userMapper.mapEntityToDto(user);
+    }
+
     /**
      * Check users for 4 conditions. if user doesn't much with 4 conditions by default he has REJECT level
      *

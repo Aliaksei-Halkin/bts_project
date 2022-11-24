@@ -12,7 +12,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
-@Deprecated
+//@Deprecated
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override

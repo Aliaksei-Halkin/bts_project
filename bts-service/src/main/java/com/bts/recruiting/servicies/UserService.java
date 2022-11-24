@@ -14,4 +14,6 @@ public interface UserService {
     UserDto addUserDecision(UserDecision userDecision, Integer userId);
 
     Page<UserDto> findAllByStatus(UserQueueLevel userQueueLevel, Pageable pageable);
+
+    UserDto findById(Integer userId);
 }
