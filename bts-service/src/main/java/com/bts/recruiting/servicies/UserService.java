@@ -1,6 +1,7 @@
 package com.bts.recruiting.servicies;
 
 import com.bts.recruiting.dtos.UserDto;
+import com.bts.recruiting.entity.UserView;
 import com.bts.recruiting.enums.UserDecision;
 import com.bts.recruiting.enums.UserQueueLevel;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface UserService {
     Page<UserDto> findAllByStatus(UserQueueLevel userQueueLevel, Pageable pageable);
 
     UserDto findById(Integer userId);
+
+    UserView findUserViewById(Integer userId);
 }

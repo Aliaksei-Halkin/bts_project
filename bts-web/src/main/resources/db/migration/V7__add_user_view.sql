@@ -1,0 +1,1 @@
+create view user_view as select u.id, u.name, u.surname, u.decision from users u;

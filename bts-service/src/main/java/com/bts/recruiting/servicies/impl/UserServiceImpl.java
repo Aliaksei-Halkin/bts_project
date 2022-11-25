@@ -11,6 +11,7 @@ import com.bts.recruiting.exceptions.ExceptionCode;
 import com.bts.recruiting.mappers.UserMapper;
 import com.bts.recruiting.repository.UserHasTechnologyRepository;
 import com.bts.recruiting.repository.UserRepository;
+import com.bts.recruiting.repository.UserViewRepository;
 import com.bts.recruiting.servicies.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,10 +36,11 @@ public class UserServiceImpl implements UserService {
     private final VacancyService vacancyService;
     private final OrganizationService organizationService;
     private final UserHasTechnologyRepository userHasTechnologyRepository;
+    public final UserViewRepository userViewRepository;
     private final UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BadUserService badUserService, BadOrganizationService badOrganizationService, TechnologyService technologyService, VacancyService vacancyService, OrganizationService organizationService, UserHasTechnologyRepository userHasTechnologyRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, BadUserService badUserService, BadOrganizationService badOrganizationService, TechnologyService technologyService, VacancyService vacancyService, OrganizationService organizationService, UserHasTechnologyRepository userHasTechnologyRepository, UserViewRepository userViewRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.badUserService = badUserService;
         this.badOrganizationService = badOrganizationService;
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
         this.vacancyService = vacancyService;
         this.organizationService = organizationService;
         this.userHasTechnologyRepository = userHasTechnologyRepository;
+        this.userViewRepository = userViewRepository;
         this.userMapper = userMapper;
     }
 
@@ -125,6 +128,13 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Integer userId) {
         User user = userRepository.findById(userId).orElse(new User());
         return userMapper.mapEntityToDto(user);
+    }
+
+    @Override
+    public UserView findUserViewById(Integer userId) {
+        return userViewRepository.findById(userId).orElseThrow(() -> {
+            throw new BtsException(ExceptionCode.RECORD_NOT_FOUND, "User not faund");
+        });
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.bts.recruiting.controllers;
 
 import com.bts.recruiting.dtos.UserDto;
+import com.bts.recruiting.entity.UserView;
 import com.bts.recruiting.enums.UserDecision;
 import com.bts.recruiting.enums.UserQueueLevel;
 import com.bts.recruiting.servicies.UserService;
@@ -44,9 +45,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findBuId(@PathVariable(name = "id") Integer userId) {
+    public ResponseEntity<UserDto> findById(@PathVariable(name = "id") Integer userId) {
         UserDto userDtos = userService.findById(userId);
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("user-view/{id}")
+    public ResponseEntity<UserView> findByUserViewId(@PathVariable(name = "id") Integer userId) {
+        UserView user = userService.findUserViewById(userId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
